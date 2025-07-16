@@ -5,8 +5,11 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useSharedWebView } from '../../components/SharedWebView';
 
 export default function HomeScreen() {
+  const { isPreloaded, preloadProgress } = useSharedWebView();
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -49,6 +52,25 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
           <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+        </ThemedText>
+      </ThemedView>
+      
+      {/* WebView 预加载状态指示器 */}
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">WebView 预加载状态</ThemedText>
+        <ThemedText>
+          {isPreloaded ? (
+            <ThemedText type="defaultSemiBold" style={{ color: '#4CAF50' }}>
+              ✅ Longbridge WebView 已预加载完成
+            </ThemedText>
+          ) : (
+            <ThemedText type="defaultSemiBold" style={{ color: '#FF9800' }}>
+              🔄 正在预加载 Longbridge WebView... {preloadProgress}%
+            </ThemedText>
+          )}
+        </ThemedText>
+        <ThemedText style={{ fontSize: 12, color: '#666', marginTop: 4 }}>
+          切换到 Longbridge 标签页体验更快的加载速度
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>
