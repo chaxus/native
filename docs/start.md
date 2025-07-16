@@ -174,3 +174,5 @@ eas build:configure
 eas build --platform android --profile development
 ```
 
+如果有遇到构建失败，可以尝试 `eas build --platform android --local` 在本地输出日志。
+
