@@ -5,10 +5,10 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { useSharedWebView } from '../../components/SharedWebView';
+import { useInlineWebView } from '../../components/InlineWebView';
 
 export default function HomeScreen() {
-  const { isPreloaded, preloadProgress } = useSharedWebView();
+  const { isLoaded } = useInlineWebView();
 
   return (
     <ParallaxScrollView
@@ -55,22 +55,22 @@ export default function HomeScreen() {
         </ThemedText>
       </ThemedView>
       
-      {/* WebView 预加载状态指示器 */}
+      {/* WebView 状态指示器 */}
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">WebView 预加载状态</ThemedText>
+        <ThemedText type="subtitle">WebView 状态</ThemedText>
         <ThemedText>
-          {isPreloaded ? (
+          {isLoaded ? (
             <ThemedText type="defaultSemiBold" style={{ color: '#4CAF50' }}>
-              ✅ Longbridge WebView 已预加载完成
+              ✅ chaxus WebView 已加载完成
             </ThemedText>
           ) : (
             <ThemedText type="defaultSemiBold" style={{ color: '#FF9800' }}>
-              🔄 正在预加载 Longbridge WebView... {preloadProgress}%
+              🔄 正在加载 chaxus WebView...
             </ThemedText>
           )}
         </ThemedText>
         <ThemedText style={{ fontSize: 12, color: '#666', marginTop: 4 }}>
-          切换到 Longbridge 标签页体验更快的加载速度
+          切换到 chaxus 标签页即可查看
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>

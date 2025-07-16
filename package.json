@@ -6,8 +6,8 @@
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "dev": "expo start --dev-client",
     "dev:ios": "expo start --ios --dev-client",
@@ -17,7 +17,7 @@
     "build:android": "eas build --platform android --profile development",
     "build:all": "eas build --platform all --profile development",
     "lint": "expo lint",
-    "doctor":"npx expo-doctor"
+    "doctor": "npx expo-doctor"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",

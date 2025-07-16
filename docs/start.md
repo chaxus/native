@@ -176,3 +176,45 @@ eas build --platform android --profile development
 
 如果有遇到构建失败，可以尝试 `eas build --platform android --local` 在本地输出日志。
 
+### 本地构建开发版本
+
+```sh
+# 生成 iOS 项目文件
+# npx expo run:ios --no-build-cache
+pnpm ios
+# 生成 android 项目文件
+# npx expo run:android --no-build-cache
+pnpm android
+```
+
+### 本地构建预览版本
+
+```sh
+# Android APK
+npx expo run:android --variant release
+# iOS (需要 macOS + Xcode)
+npx expo run:ios --configuration Release
+```
+
+### 云端构建
+
+- 预览版本
+
+```sh
+# 云构建，不生成本地文件
+eas build --platform ios --profile preview
+```
+- 开发版本
+
+```sh
+# 云构建，不生成本地文件
+eas build --platform ios --profile development
+```
+
+### 安装
+
+- 安卓构建完成后，会生成一个 apk 文件，直接在手机里面安装即可
+- iOS 安装步骤
+1. 在 Xcode 中打开项目
+2. 连接 iPhone
+3. 直接部署到设备 (只能在自己的设备上安装，7 天后会自动失效，需要重新签名和安装，不能分发给其他人)
