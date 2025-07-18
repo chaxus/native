@@ -18,6 +18,9 @@
       "distribution": "internal",
       "ios": {
         "buildConfiguration": "Release"
+      },
+      "android": {
+        "buildType": "apk"
       }
     },
     "production": {
@@ -27,7 +30,7 @@
         "buildConfiguration": "Release"
       },
       "android": {
-        "buildType": "aab"
+        "buildType": "app-bundle"
       }
     },
     "free-preview": {
