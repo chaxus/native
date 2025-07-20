@@ -22,6 +22,9 @@
     "build:ios:preview": "eas build --platform ios --profile preview",
     "build:android:preview": "eas build --platform android --profile preview",
     "build:all:preview": "eas build --platform all --profile preview",
+    "apk:debug": "cd android && ./gradlew assembleDebug",
+    "apk:release": "cd android && ./gradlew assembleRelease",
+    "apk:clean": "cd android && ./gradlew clean",
     "lint": "expo lint",
     "doctor": "npx expo-doctor"
   },
