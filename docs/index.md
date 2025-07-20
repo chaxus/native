@@ -9,6 +9,7 @@
 
 ### 🔧 开发指南
 - [Android 构建问题解决](./android-build-troubleshooting.md) - React Native Android 构建问题完整解决方案
+- [Offscreen WebView SDK](./offscreen-webview-sdk.md) - 离屏渲染 WebView SDK 使用指南
 
 ### 📱 平台特定指南
 - [Android 开发](./android-build-troubleshooting.md) - Android 平台开发和构建指南

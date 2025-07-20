@@ -1,6 +1,33 @@
-# Welcome to your Expo app 👋
+# Native App - Cross-Platform Mobile Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+[![React Native](https://img.shields.io/badge/React%20Native-0.79.5-blue.svg)](https://reactnative.dev/)
+[![Expo](https://img.shields.io/badge/Expo-53.0.19-blue.svg)](https://expo.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue.svg)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+[English](README.md) | [中文](README.zh-CN.md)
+
+A modern cross-platform mobile application built with React Native and Expo, featuring advanced WebView capabilities and comprehensive development tools.
+
+## 🌟 Features
+
+- **🚀 Cross-Platform**: Runs on Android, iOS, and Web
+- **📱 Modern UI**: Built with React Native and Expo Router
+- **🔧 TypeScript**: Full TypeScript support for better development experience
+- **🌐 Advanced WebView**: Custom offscreen WebView SDK for background processing
+- **📦 Monorepo**: Organized with workspace packages
+- **🛠️ Development Tools**: Comprehensive build and development scripts
+- **📚 Documentation**: Complete documentation and troubleshooting guides
+
+## 📦 Packages
+
+This project includes several packages:
+
+- **Main App**: React Native application with Expo
+- **Offscreen WebView SDK**: Cross-platform WebView solution for background processing
+  - Supports Android, iOS, and Web platforms
+  - Enables webpage screenshot, content scraping, and automation
+  - Full TypeScript support with comprehensive API
 
 ## 🚀 Quick Start
 
@@ -10,29 +37,25 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 - **Java**: 17 (推荐 Zulu JDK)
 - **Android SDK**: 最新版本
 - **Android NDK**: 29.0.13599879 或兼容版本
+- **Xcode**: For iOS development (macOS only)
 
 ### Installation
 
-1. Install dependencies
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd native
+   ```
 
+2. **Install dependencies**
    ```bash
    pnpm install
    ```
 
-2. Start the app
-
+3. **Start the development server**
    ```bash
    pnpm start
    ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
 ## 📱 Development Commands
 
@@ -117,6 +140,7 @@ sdk.dir=/Users/ranzhouhang/Library/Android/sdk
 
 - [项目文档](./docs/index.md) - 完整的项目文档
 - [Android 构建问题解决](./docs/android-build-troubleshooting.md) - 常见问题解决方案
+- [Offscreen WebView SDK 使用指南](./docs/offscreen-webview-sdk.md) - SDK 详细使用说明
 
 ## 🛠️ Troubleshooting
 
@@ -125,26 +149,47 @@ sdk.dir=/Users/ranzhouhang/Library/Android/sdk
 - 确保 Java 版本为 17
 - 检查 Android SDK 和 NDK 配置
 
-## Get a fresh project
+## 🏗️ Project Structure
 
-When you're ready, run:
-
-```bash
-pnpm reset-project
+```
+native/
+├── app/                           # Main application (Expo Router)
+├── packages/                      # Workspace packages
+│   └── offscreen-webview-sdk/    # Offscreen WebView SDK
+├── android/                       # Android native code
+├── ios/                          # iOS native code
+├── docs/                         # Documentation
+├── components/                   # Shared components
+├── constants/                    # App constants
+└── assets/                       # Static assets
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🤝 Contributing
 
-## Learn more
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📄 License
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Join the community
+## 🔗 Links
 
-Join our community of developers creating universal apps.
+- [Expo Documentation](https://docs.expo.dev/)
+- [React Native Documentation](https://reactnative.dev/)
+- [TypeScript Documentation](https://www.typescriptlang.org/)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 📞 Support
+
+If you encounter any issues or have questions:
+
+1. Check the [documentation](./docs/)
+2. Search existing [issues](../../issues)
+3. Create a new issue with detailed information
+
+---
+
+**Made with ❤️ using React Native and Expo**
