@@ -15,11 +15,14 @@ packages/offscreen-webview-sdk/
 ├── android/                # Android 平台实现
 │   └── OffscreenWebViewModule.ts
 ├── ios/                    # iOS 平台实现
-│   └── OffscreenWebViewModule.ts
+│   ├── OffscreenWebViewModule.ts    # TypeScript 接口
+│   ├── OffscreenWebViewModule.swift # Swift 实现
+│   └── OffscreenWebViewModule.m     # Objective-C 桥接
 ├── web/                    # Web 平台实现
 │   └── WebOffscreenWebView.ts
 ├── examples/               # 使用示例
-│   └── react-native-example.tsx
+│   ├── react-native-example.tsx     # React Native 示例
+│   └── ios-example.swift            # iOS 原生示例
 ├── package.json           # 包配置
 ├── tsconfig.json          # TypeScript 配置
 └── README.md              # 详细文档

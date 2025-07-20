@@ -4,45 +4,45 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[English](README.en.md) | [中文](README.md)
+[English](README.md) | [中文](README.zh-CN.md)
 
-一个跨平台的离屏 WebView SDK，支持 React Native、Android、iOS 和 Web 平台。提供强大的后台网页处理能力，适用于网页截图、内容抓取、自动化测试等场景。
+A cross-platform offscreen WebView SDK that supports React Native, Android, iOS, and Web platforms. Provides powerful background web page processing capabilities, suitable for webpage screenshots, content scraping, automated testing, and other scenarios.
 
-## 🚀 特性
+## 🚀 Features
 
-- ✅ **跨平台支持**: React Native、Android、iOS、Web
-- ✅ **离屏渲染**: 在后台运行，不占用 UI 线程
-- ✅ **JavaScript 执行**: 支持在 WebView 中执行 JavaScript 代码
-- ✅ **页面截图**: 获取 WebView 内容的截图
-- ✅ **页面操作**: 导航、刷新、获取内容等
-- ✅ **事件监听**: 支持页面加载、错误等事件
-- ✅ **TypeScript 支持**: 完整的类型定义
-- ✅ **轻量级**: 最小化依赖，易于集成
+- ✅ **Cross-Platform Support**: React Native, Android, iOS, Web
+- ✅ **Offscreen Rendering**: Runs in background without occupying UI thread
+- ✅ **JavaScript Execution**: Execute JavaScript code in WebView
+- ✅ **Page Screenshots**: Capture screenshots of WebView content
+- ✅ **Page Operations**: Navigation, refresh, content retrieval, etc.
+- ✅ **Event Listening**: Support for page loading, error events, etc.
+- ✅ **TypeScript Support**: Complete type definitions
+- ✅ **Lightweight**: Minimal dependencies, easy to integrate
 
-## 📦 安装
+## 📦 Installation
 
 ```bash
 npm install @native/offscreen-webview-sdk
-# 或
+# or
 yarn add @native/offscreen-webview-sdk
-# 或
+# or
 pnpm add @native/offscreen-webview-sdk
 ```
 
-## 🛠️ 快速开始
+## 🛠️ Quick Start
 
-### React Native 使用示例
+### React Native Usage Example
 
 ```typescript
 import { createOffscreenWebView, isOffscreenWebViewSupported } from '@native/offscreen-webview-sdk';
 
-// 检查平台支持
+// Check platform support
 if (!isOffscreenWebViewSupported()) {
-  console.log('当前平台不支持离屏 WebView');
+  console.log('Current platform does not support offscreen WebView');
   return;
 }
 
-// 创建 WebView 实例
+// Create WebView instance
 const webView = await createOffscreenWebView({
   width: 375,
   height: 667,
@@ -51,26 +51,26 @@ const webView = await createOffscreenWebView({
   debug: true
 });
 
-// 加载页面
+// Load page
 await webView.loadUrl('https://reactnative.dev');
 
-// 执行 JavaScript
+// Execute JavaScript
 const result = await webView.executeJavaScript(`
   document.title = 'Modified by SDK';
   document.title;
 `);
 
-// 获取页面截图
+// Capture screenshot
 const screenshot = await webView.captureScreenshot();
 
-// 获取页面内容
+// Get page content
 const content = await webView.getPageContent();
 
-// 销毁实例
+// Destroy instance
 await webView.destroy();
 ```
 
-### 完整示例
+### Complete Example
 
 ```typescript
 import React, { useEffect, useState } from 'react';
@@ -99,9 +99,9 @@ const App = () => {
       });
       
       setWebView(instance);
-      Alert.alert('成功', 'WebView 创建成功');
+      Alert.alert('Success', 'WebView created successfully');
     } catch (error) {
-      Alert.alert('错误', `创建失败: ${error}`);
+      Alert.alert('Error', `Creation failed: ${error}`);
     }
   };
 
@@ -111,9 +111,9 @@ const App = () => {
     try {
       await webView.loadUrl('https://reactnative.dev');
       const title = await webView.getPageTitle();
-      Alert.alert('页面标题', title);
+      Alert.alert('Page Title', title);
     } catch (error) {
-      Alert.alert('错误', `加载失败: ${error}`);
+      Alert.alert('Error', `Loading failed: ${error}`);
     }
   };
 
@@ -122,94 +122,94 @@ const App = () => {
     
     try {
       const screenshot = await webView.captureScreenshot();
-      // 处理截图数据
-      console.log('截图:', screenshot.substring(0, 100));
+      // Process screenshot data
+      console.log('Screenshot:', screenshot.substring(0, 100));
     } catch (error) {
-      Alert.alert('错误', `截图失败: ${error}`);
+      Alert.alert('Error', `Screenshot failed: ${error}`);
     }
   };
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
-      <Button title="创建 WebView" onPress={createWebView} />
-      <Button title="加载页面" onPress={loadPage} />
-      <Button title="截图" onPress={takeScreenshot} />
+      <Button title="Create WebView" onPress={createWebView} />
+      <Button title="Load Page" onPress={loadPage} />
+      <Button title="Screenshot" onPress={takeScreenshot} />
     </View>
   );
 };
 ```
 
-## 📚 API 文档
+## 📚 API Documentation
 
-### 配置选项
+### Configuration Options
 
 ```typescript
 interface OffscreenWebViewConfig {
-  width: number;                    // WebView 宽度
-  height: number;                   // WebView 高度
-  url?: string;                     // 初始 URL
-  html?: string;                    // 初始 HTML 内容
-  userAgent?: string;               // 用户代理字符串
-  javaScriptEnabled?: boolean;      // 是否启用 JavaScript
-  allowFileAccess?: boolean;        // 是否允许文件访问
-  allowUniversalAccessFromFileURLs?: boolean; // 是否允许通用文件访问
-  headers?: Record<string, string>; // 自定义请求头
-  injectedJavaScript?: string;      // 注入的 JavaScript 代码
-  debug?: boolean;                  // 是否启用调试模式
+  width: number;                    // WebView width
+  height: number;                   // WebView height
+  url?: string;                     // Initial URL
+  html?: string;                    // Initial HTML content
+  userAgent?: string;               // User agent string
+  javaScriptEnabled?: boolean;      // Enable JavaScript
+  allowFileAccess?: boolean;        // Allow file access
+  allowUniversalAccessFromFileURLs?: boolean; // Allow universal file access
+  headers?: Record<string, string>; // Custom request headers
+  injectedJavaScript?: string;      // Injected JavaScript code
+  debug?: boolean;                  // Enable debug mode
 }
 ```
 
-### 实例方法
+### Instance Methods
 
 ```typescript
 interface OffscreenWebViewInstance {
-  // 页面加载
+  // Page loading
   loadUrl(url: string): Promise<void>;
   loadHTML(html: string, baseURL?: string): Promise<void>;
   
-  // JavaScript 执行
+  // JavaScript execution
   executeJavaScript(script: string): Promise<any>;
   
-  // 页面信息
+  // Page information
   getPageContent(): Promise<string>;
   getPageTitle(): Promise<string>;
   getCurrentUrl(): Promise<string>;
   
-  // 截图
+  // Screenshots
   captureScreenshot(): Promise<string>;
   
-  // 导航
+  // Navigation
   goBack(): Promise<boolean>;
   goForward(): Promise<boolean>;
   reload(): Promise<void>;
   stopLoading(): Promise<void>;
   
-  // 生命周期
+  // Lifecycle
   destroy(): Promise<void>;
 }
 ```
 
-### SDK 方法
+### SDK Methods
 
 ```typescript
-// 创建实例
+// Create instance
 const webView = await createOffscreenWebView(config);
 
-// 检查支持
+// Check support
 const supported = isOffscreenWebViewSupported();
 
-// 获取平台
+// Get platform
 const platform = getOffscreenWebViewPlatform();
 
-// 获取版本
+// Get version
 const version = getOffscreenWebViewVersion();
 ```
 
-## 🔧 平台特定配置
+## 🔧 Platform-Specific Configuration
 
 ### Android
 
-Android 平台使用原生 WebView 实现，需要确保应用有网络权限：
+Android platform uses native WebView implementation, ensure the app has network permissions:
 
 ```xml
 <!-- AndroidManifest.xml -->
@@ -218,7 +218,7 @@ Android 平台使用原生 WebView 实现，需要确保应用有网络权限：
 
 ### iOS
 
-iOS 平台使用 WKWebView 实现，需要配置 App Transport Security：
+iOS platform uses WKWebView implementation, configure App Transport Security:
 
 ```xml
 <!-- Info.plist -->
@@ -231,34 +231,62 @@ iOS 平台使用 WKWebView 实现，需要配置 App Transport Security：
 
 ### Web
 
-Web 平台使用隐藏的 iframe 实现，支持所有现代浏览器。
+Web platform uses hidden iframe implementation, supports all modern browsers.
 
-## 🎯 使用场景
+## 🎯 Use Cases
 
-- **网页截图**: 批量生成网页截图
-- **内容抓取**: 抓取网页内容进行数据分析
-- **自动化测试**: 在后台运行网页测试
-- **预渲染**: 预加载和渲染网页内容
-- **数据提取**: 从网页中提取结构化数据
+- **Webpage Screenshots**: Batch generate webpage screenshots
+- **Content Scraping**: Scrape webpage content for data analysis
+- **Automated Testing**: Run web tests in background
+- **Pre-rendering**: Pre-load and render webpage content
+- **Data Extraction**: Extract structured data from webpages
 
-## 🚨 注意事项
+## 🚨 Important Notes
 
-1. **内存管理**: 及时销毁不需要的 WebView 实例
-2. **网络权限**: 确保应用有适当的网络权限
-3. **跨域限制**: Web 平台可能受到跨域限制
-4. **性能考虑**: 大量实例可能影响性能
-5. **平台差异**: 不同平台的行为可能略有差异
+1. **Memory Management**: Destroy WebView instances when not needed
+2. **Network Permissions**: Ensure app has appropriate network permissions
+3. **Cross-Origin Restrictions**: Web platform may be subject to CORS restrictions
+4. **Performance Considerations**: Large numbers of instances may affect performance
+5. **Platform Differences**: Behavior may vary slightly between platforms
 
-## 🤝 贡献
+## 🤝 Contributing
 
-欢迎提交 Issue 和 Pull Request！
+Welcome to submit Issues and Pull Requests!
 
-## 📄 许可证
+## 📄 License
 
 MIT License
 
-## 🔗 相关链接
+## 📁 Project Structure
+
+```
+packages/offscreen-webview-sdk/
+├── src/                    # Core source code
+│   ├── index.ts           # Main entry file
+│   └── platforms/         # Platform-specific implementations
+│       ├── AndroidOffscreenWebView.ts
+│       ├── IOSOffscreenWebView.ts
+│       └── WebOffscreenWebView.ts
+├── types/                  # TypeScript type definitions
+│   └── index.d.ts         # Type declarations
+├── native/                 # Native code implementations
+│   ├── android/           # Android native modules
+│   │   ├── OffscreenWebViewModule.java
+│   │   └── OffscreenWebViewPackage.java
+│   └── ios/               # iOS native modules
+│       ├── OffscreenWebViewModule.swift
+│       └── OffscreenWebViewModule.m
+├── examples/               # Usage examples
+│   ├── react-native-example.tsx     # React Native example
+│   ├── android-example.java         # Android native example
+│   └── ios-example.swift            # iOS native example
+├── package.json           # Package configuration
+├── tsconfig.json          # TypeScript configuration
+└── README.md              # Detailed documentation
+```
+
+## 🔗 Related Links
 
 - [React Native WebView](https://github.com/react-native-webview/react-native-webview)
-- [WKWebView 文档](https://developer.apple.com/documentation/webkit/wkwebview)
-- [Android WebView 文档](https://developer.android.com/reference/android/webkit/WebView) 
+- [WKWebView Documentation](https://developer.apple.com/documentation/webkit/wkwebview)
+- [Android WebView Documentation](https://developer.android.com/reference/android/webkit/WebView) 

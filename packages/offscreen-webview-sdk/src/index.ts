@@ -72,7 +72,7 @@ class OffscreenWebViewSDKImpl implements OffscreenWebViewSDK {
    */
   private async createAndroidInstance(config: OffscreenWebViewConfig, instanceId: string): Promise<OffscreenWebViewInstance> {
     // 这里将调用 Android 原生模块
-    const { OffscreenWebViewModule } = require('../android/OffscreenWebViewModule');
+    const { OffscreenWebViewModule } = require('./platforms/AndroidOffscreenWebView');
     
     return new OffscreenWebViewModule(instanceId, config);
   }
@@ -82,7 +82,7 @@ class OffscreenWebViewSDKImpl implements OffscreenWebViewSDK {
    */
   private async createIOSInstance(config: OffscreenWebViewConfig, instanceId: string): Promise<OffscreenWebViewInstance> {
     // 这里将调用 iOS 原生模块
-    const { OffscreenWebViewModule } = require('../ios/OffscreenWebViewModule');
+    const { OffscreenWebViewModule } = require('./platforms/IOSOffscreenWebView');
     
     return new OffscreenWebViewModule(instanceId, config);
   }
@@ -92,7 +92,7 @@ class OffscreenWebViewSDKImpl implements OffscreenWebViewSDK {
    */
   private async createWebInstance(config: OffscreenWebViewConfig, instanceId: string): Promise<OffscreenWebViewInstance> {
     // Web 平台使用 iframe 或隐藏的 div 实现
-    const { WebOffscreenWebView } = require('../web/WebOffscreenWebView');
+    const { WebOffscreenWebView } = require('./platforms/WebOffscreenWebView');
     
     return new WebOffscreenWebView(instanceId, config);
   }
