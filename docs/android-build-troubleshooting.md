@@ -153,7 +153,7 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 export PATH=$JAVA_HOME/bin:$PATH
 
 # 清理构建缓存
-cd android && ./gradlew clean
+pnpm apk:clean
 
 # 构建并运行 Android 应用
 pnpm android
@@ -161,8 +161,12 @@ pnpm android
 # 开发模式运行
 pnpm dev:android
 
-# 构建开发版本
-pnpm build:android
+# 构建 APK 文件
+pnpm apk:debug      # 构建调试版本 APK
+pnpm apk:release    # 构建发布版本 APK (推荐用于测试)
+
+# EAS 云构建
+pnpm build:android  # 构建开发版本
 ```
 
 ## 环境要求
@@ -218,4 +222,4 @@ pnpm start --reset-cache
 
 ---
 
-*最后更新: 2024年12月* 
+*最后更新：2024 年 12 月* 

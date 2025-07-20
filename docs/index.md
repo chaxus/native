@@ -46,7 +46,10 @@ pnpm ios
 pnpm dev:android
 pnpm dev:ios
 
-# 构建应用
+# 构建 APK (本地构建，推荐用于测试)
+pnpm apk:release
+
+# 构建应用 (EAS 云构建)
 pnpm build:android
 pnpm build:ios
 ```
