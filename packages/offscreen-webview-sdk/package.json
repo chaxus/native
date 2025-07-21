@@ -1,36 +1,27 @@
 {
   "name": "@native/offscreen-webview-sdk",
   "version": "1.0.0",
-  "description": "A cross-platform WebView SDK for React Native, Android, iOS, and Web platforms",
+  "description": "A cross-platform WebView SDK for React Native and Web platforms",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
     "native",
     "README.md",
-    "USAGE.md"
+    "USAGE.md",
+    "REACT_NATIVE_SETUP.md"
   ],
   "scripts": {
     "build": "tsc && cp src/types.d.ts dist/types.d.ts",
-    "build:android": "npm run build && cd native/android && ./gradlew assembleRelease",
-    "build:ios": "npm run build && cd native/ios && xcodebuild -workspace OffscreenWebView.xcworkspace -scheme OffscreenWebView -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' archive -archivePath OffscreenWebView.xcarchive",
-    "build:all": "npm run build && npm run build:android && npm run build:ios",
-    "clean": "rm -rf dist",
-    "pack": "npm pack",
-    "publish": "npm publish",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "echo \"Error: no lint specified\" && exit 1",
-    "format": "echo \"Error: no format specified\" && exit 1"
+    "build:clean": "rm -rf dist && npm run build",
+    "pack": "npm run build && npm pack",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "react-native",
     "webview",
     "cross-platform",
-    "android",
-    "ios",
-    "web",
-    "typescript",
-    "native-module"
+    "typescript"
   ],
   "author": "Your Name",
   "license": "MIT",
@@ -43,14 +34,5 @@
     "@types/react": "^18.0.0",
     "@types/react-native": "^0.72.0",
     "typescript": "^5.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/your-username/native.git",
-    "directory": "packages/offscreen-webview-sdk"
-  },
-  "bugs": {
-    "url": "https://github.com/your-username/native/issues"
-  },
-  "homepage": "https://github.com/your-username/native/tree/main/packages/offscreen-webview-sdk#readme"
+  }
 } 
