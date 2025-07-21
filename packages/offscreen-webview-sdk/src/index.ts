@@ -1,29 +1,27 @@
 import { Platform } from 'react-native';
-import {
-    OffscreenWebViewConfig,
-    OffscreenWebViewInstance,
-    OffscreenWebViewSDK
-} from '../types';
+import type {
+  WebViewConfig,
+  WebViewInstance,
+  WebViewSDK
+} from './types';
 
-class OffscreenWebViewSDKImpl implements OffscreenWebViewSDK {
+class WebViewSDKImpl implements WebViewSDK {
   private version = '1.0.0';
-  private instances: Map<string, OffscreenWebViewInstance> = new Map();
+  private instances: Map<string, WebViewInstance> = new Map();
 
   /**
-   * 创建离屏 WebView 实例
+   * 创建 WebView 实例
    */
-  async createInstance(config: OffscreenWebViewConfig): Promise<OffscreenWebViewInstance> {
+  async createInstance(config: WebViewConfig): Promise<WebViewInstance> {
     const instanceId = this.generateInstanceId();
     
     // 根据平台创建不同的实现
-    let instance: OffscreenWebViewInstance;
+    let instance: WebViewInstance;
     
     switch (this.getPlatform()) {
       case 'android':
-        instance = await this.createAndroidInstance(config, instanceId);
-        break;
       case 'ios':
-        instance = await this.createIOSInstance(config, instanceId);
+        instance = await this.createReactNativeInstance(config, instanceId);
         break;
       case 'web':
         instance = await this.createWebInstance(config, instanceId);
@@ -64,37 +62,28 @@ class OffscreenWebViewSDKImpl implements OffscreenWebViewSDK {
    * 生成实例 ID
    */
   private generateInstanceId(): string {
-    return `offscreen-webview-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    return `webview-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
 
   /**
-   * 创建 Android 平台实例
+   * 创建 React Native 实例
    */
-  private async createAndroidInstance(config: OffscreenWebViewConfig, instanceId: string): Promise<OffscreenWebViewInstance> {
-    // 这里将调用 Android 原生模块
-    const { OffscreenWebViewModule } = require('./platforms/AndroidOffscreenWebView');
+  private async createReactNativeInstance(config: WebViewConfig, instanceId: string): Promise<WebViewInstance> {
+    // React Native 平台使用 react-native-webview 实现
+    const { ReactNativeWebView } = require('./platforms/ReactNativeWebView');
     
-    return new OffscreenWebViewModule(instanceId, config);
-  }
-
-  /**
-   * 创建 iOS 平台实例
-   */
-  private async createIOSInstance(config: OffscreenWebViewConfig, instanceId: string): Promise<OffscreenWebViewInstance> {
-    // 这里将调用 iOS 原生模块
-    const { OffscreenWebViewModule } = require('./platforms/IOSOffscreenWebView');
-    
-    return new OffscreenWebViewModule(instanceId, config);
+    return new ReactNativeWebView(instanceId, config);
   }
 
   /**
    * 创建 Web 平台实例
    */
-  private async createWebInstance(config: OffscreenWebViewConfig, instanceId: string): Promise<OffscreenWebViewInstance> {
-    // Web 平台使用 iframe 或隐藏的 div 实现
+  private async createWebInstance(config: WebViewConfig, instanceId: string): Promise<WebViewInstance> {
+    // Web 平台使用 iframe 实现
     const { WebOffscreenWebView } = require('./platforms/WebOffscreenWebView');
     
-    return new WebOffscreenWebView(instanceId, config);
+    // 这里需要扩展 WebOffscreenWebView 来支持 UI 功能
+    return new WebOffscreenWebView(instanceId, config) as WebViewInstance;
   }
 
   /**
@@ -115,21 +104,26 @@ class OffscreenWebViewSDKImpl implements OffscreenWebViewSDK {
 }
 
 // 创建单例实例
-const offscreenWebViewSDK = new OffscreenWebViewSDKImpl();
+const webViewSDK = new WebViewSDKImpl();
 
-// 导出 SDK 实例和类型
-export default offscreenWebViewSDK;
-export * from '../types';
+// 导出 SDK 实例
+export default webViewSDK;
+
+// 导出类型
+export type {
+  JavaScriptExecutionOptions, NavigationOptions, WebViewConfig, WebViewEvent, WebViewInstance,
+  WebViewSDK
+} from './types';
 
 // 导出便捷方法
-export const createOffscreenWebView = (config: OffscreenWebViewConfig) => 
-  offscreenWebViewSDK.createInstance(config);
+export const createWebView = (config: WebViewConfig) => 
+  webViewSDK.createInstance(config);
 
-export const isOffscreenWebViewSupported = () => 
-  offscreenWebViewSDK.isSupported();
+export const isWebViewSupported = () => 
+  webViewSDK.isSupported();
 
-export const getOffscreenWebViewPlatform = () => 
-  offscreenWebViewSDK.getPlatform();
+export const getWebViewPlatform = () => 
+  webViewSDK.getPlatform();
 
-export const getOffscreenWebViewVersion = () => 
-  offscreenWebViewSDK.getVersion(); 
+export const getWebViewVersion = () => 
+  webViewSDK.getVersion(); 
