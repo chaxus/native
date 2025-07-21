@@ -11,7 +11,7 @@ A modern cross-platform mobile application built with React Native and Expo, fea
 
 ## 🌟 Features
 
-- **🚀 Cross-Platform**: Runs on Android, iOS, and Web
+- **🚀 Cross-Platform**: Runs on Android, iOS, Web, and HarmonyOS
 - **📱 Modern UI**: Built with React Native and Expo Router
 - **🔧 TypeScript**: Full TypeScript support for better development experience
 - **🌐 Advanced WebView**: Custom offscreen WebView SDK for background processing
@@ -25,7 +25,7 @@ This project includes several packages:
 
 - **Main App**: React Native application with Expo
 - **Offscreen WebView SDK**: Cross-platform WebView solution for background processing
-  - Supports Android, iOS, and Web platforms
+  - Supports Android, iOS, Web, and HarmonyOS platforms
   - Enables webpage screenshot, content scraping, and automation
   - Full TypeScript support with comprehensive API
 
@@ -119,6 +119,20 @@ pnpm build:ios:preview
 
 # Build production version
 pnpm build:ios:production
+```
+
+### Build HarmonyOS
+
+```bash
+# Build development version
+pnpm build:harmonyos
+
+# Build preview version
+pnpm build:harmonyos:preview
+
+# Build production version
+pnpm build:harmonyos:production
+```
 ```
 
 ## 🔧 Environment Setup

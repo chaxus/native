@@ -89,7 +89,7 @@ export interface WebViewSDK {
   /** 检查平台支持 */
   isSupported(): boolean;
   /** 获取平台信息 */
-  getPlatform(): 'android' | 'ios' | 'web' | 'unknown';
+  getPlatform(): 'android' | 'ios' | 'web' | 'harmonyos' | 'unknown';
   /** 获取版本信息 */
   getVersion(): string;
 }

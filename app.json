@@ -23,6 +23,14 @@
       "edgeToEdgeEnabled": true,
       "package": "com.chaxus.nativeapp"
     },
+    "harmonyos": {
+      "package": "com.chaxus.nativeapp",
+      "minPlatformVersion": 9,
+      "targetPlatformVersion": 9,
+      "icon": "./assets/images/icon.png",
+      "label": "Native App",
+      "description": "A cross-platform React Native application"
+    },
     "web": {
       "bundler": "metro",
       "output": "static",

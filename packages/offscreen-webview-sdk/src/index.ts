@@ -23,6 +23,9 @@ class WebViewSDKImpl implements WebViewSDK {
       case 'ios':
         instance = await this.createReactNativeInstance(config, instanceId);
         break;
+      case 'harmonyos':
+        instance = await this.createHarmonyOSInstance(config, instanceId);
+        break;
       case 'web':
         instance = await this.createWebInstance(config, instanceId);
         break;
@@ -38,17 +41,46 @@ class WebViewSDKImpl implements WebViewSDK {
    * 检查平台支持
    */
   isSupported(): boolean {
-    return ['android', 'ios', 'web'].includes(this.getPlatform());
+    return ['android', 'ios', 'web', 'harmonyos'].includes(this.getPlatform());
   }
 
   /**
    * 获取平台信息
    */
-  getPlatform(): 'android' | 'ios' | 'web' | 'unknown' {
-    if (Platform.OS === 'android') return 'android';
+  getPlatform(): 'android' | 'ios' | 'web' | 'harmonyos' | 'unknown' {
+    if (Platform.OS === 'android') {
+      // 检测是否为鸿蒙系统
+      if (this.isHarmonyOS()) {
+        return 'harmonyos';
+      }
+      return 'android';
+    }
     if (Platform.OS === 'ios') return 'ios';
     if (Platform.OS === 'web') return 'web';
     return 'unknown';
+  }
+
+  /**
+   * 检测是否为鸿蒙系统
+   */
+  private isHarmonyOS(): boolean {
+    try {
+      // 通过系统信息检测鸿蒙系统
+      const systemInfo = (global as any).systemInfo;
+      if (systemInfo && systemInfo.osType === 'HarmonyOS') {
+        return true;
+      }
+      
+      // 通过用户代理检测
+      if (typeof navigator !== 'undefined' && navigator.userAgent) {
+        return navigator.userAgent.includes('HarmonyOS') || 
+               navigator.userAgent.includes('HUAWEI');
+      }
+      
+      return false;
+    } catch (error) {
+      return false;
+    }
   }
 
   /**
@@ -73,6 +105,16 @@ class WebViewSDKImpl implements WebViewSDK {
     const { ReactNativeWebView } = require('./platforms/ReactNativeWebView');
     
     return new ReactNativeWebView(instanceId, config);
+  }
+
+  /**
+   * 创建鸿蒙系统实例
+   */
+  private async createHarmonyOSInstance(config: WebViewConfig, instanceId: string): Promise<WebViewInstance> {
+    // 鸿蒙系统使用专门的 HarmonyOS WebView 实现
+    const { HarmonyOSWebView } = require('./platforms/HarmonyOSWebView');
+    
+    return new HarmonyOSWebView(instanceId, config);
   }
 
   /**

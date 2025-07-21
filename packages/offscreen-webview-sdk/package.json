@@ -14,7 +14,9 @@
   "scripts": {
     "build": "tsc && cp src/types.d.ts dist/types.d.ts",
     "build:clean": "rm -rf dist && npm run build",
+    "build:harmonyos": "tsc && cp src/types.d.ts dist/types.d.ts && cp -r native/harmonyos dist/",
     "pack": "npm run build && npm pack",
+    "pack:harmonyos": "npm run build:harmonyos && npm pack",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
