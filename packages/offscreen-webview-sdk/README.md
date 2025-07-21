@@ -1,4 +1,4 @@
-# Offscreen WebView SDK
+# WebView SDK
 
 [![React Native](https://img.shields.io/badge/React%20Native-0.79.5-blue.svg)](https://reactnative.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue.svg)](https://www.typescriptlang.org/)
@@ -6,18 +6,18 @@
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-A cross-platform offscreen WebView SDK that supports React Native, Android, iOS, and Web platforms. Provides powerful background web page processing capabilities, suitable for webpage screenshots, content scraping, automated testing, and other scenarios.
+A cross-platform WebView SDK that supports React Native, Android, iOS, and Web platforms. Provides powerful WebView integration for displaying web content directly in your app UI, suitable for inline web content display, web-based features, and hybrid app development.
 
 ## 🚀 Features
 
 - ✅ **Cross-Platform Support**: React Native, Android, iOS, Web
-- ✅ **Offscreen Rendering**: Runs in background without occupying UI thread
+- ✅ **UI Integration**: Display WebView content directly in your app UI
 - ✅ **JavaScript Execution**: Execute JavaScript code in WebView
-- ✅ **Page Screenshots**: Capture screenshots of WebView content
 - ✅ **Page Operations**: Navigation, refresh, content retrieval, etc.
 - ✅ **Event Listening**: Support for page loading, error events, etc.
 - ✅ **TypeScript Support**: Complete type definitions
 - ✅ **Lightweight**: Minimal dependencies, easy to integrate
+- ✅ **Memory Management**: Automatic resource cleanup
 
 ## 📦 Installation
 
@@ -31,109 +31,119 @@ pnpm add @native/offscreen-webview-sdk
 
 ## 🛠️ Quick Start
 
-### React Native Usage Example
+### Basic Usage
 
 ```typescript
-import { createOffscreenWebView, isOffscreenWebViewSupported } from '@native/offscreen-webview-sdk';
-
-// Check platform support
-if (!isOffscreenWebViewSupported()) {
-  console.log('Current platform does not support offscreen WebView');
-  return;
-}
-
-// Create WebView instance
-const webView = await createOffscreenWebView({
-  width: 375,
-  height: 667,
-  url: 'https://example.com',
-  javaScriptEnabled: true,
-  debug: true
-});
-
-// Load page
-await webView.loadUrl('https://reactnative.dev');
-
-// Execute JavaScript
-const result = await webView.executeJavaScript(`
-  document.title = 'Modified by SDK';
-  document.title;
-`);
-
-// Capture screenshot
-const screenshot = await webView.captureScreenshot();
-
-// Get page content
-const content = await webView.getPageContent();
-
-// Destroy instance
-await webView.destroy();
-```
-
-### Complete Example
-
-```typescript
-import React, { useEffect, useState } from 'react';
-import { View, Button, Alert } from 'react-native';
-import { createOffscreenWebView } from '@native/offscreen-webview-sdk';
+import React, { useState, useEffect } from 'react';
+import { View, Button } from 'react-native';
+import { createWebView, isWebViewSupported } from '@native/offscreen-webview-sdk';
 
 const App = () => {
-  const [webView, setWebView] = useState<any>(null);
+  const [webViewInstance, setWebViewInstance] = React.useState<any>(null);
+  const [WebViewComponent, setWebViewComponent] = React.useState<React.ComponentType<any> | null>(null);
 
-  const createWebView = async () => {
-    try {
-      const instance = await createOffscreenWebView({
+  React.useEffect(() => {
+    const initWebView = async () => {
+      if (!isWebViewSupported()) {
+        console.log('Platform not supported');
+        return;
+      }
+
+      const instance = await createWebView({
         width: 375,
         height: 667,
         url: 'https://example.com',
+        visible: false,
         javaScriptEnabled: true,
-        userAgent: 'OffscreenWebView/1.0',
-        injectedJavaScript: `
-          console.log('WebView initialized');
-          window.ReactNativeWebView = {
-            postMessage: (data) => {
-              console.log('Message:', data);
-            }
-          };
-        `
+        debug: true
       });
+
+      setWebViewInstance(instance);
+      setWebViewComponent(() => instance.getComponent());
+    };
+
+    initWebView();
+  }, []);
+
+  const showWebView = () => {
+    webViewInstance?.show();
+  };
+
+  const hideWebView = () => {
+    webViewInstance?.hide();
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      <Button title="Show WebView" onPress={showWebView} />
+      <Button title="Hide WebView" onPress={hideWebView} />
       
+      {WebViewComponent && (
+        <WebViewComponent>
+          <View />
+        </WebViewComponent>
+      )}
+    </View>
+  );
+};
+```
+
+### Advanced Usage
+
+```typescript
+import React from 'react';
+import { View, Button, Alert } from 'react-native';
+import { createWebView } from '@native/offscreen-webview-sdk';
+
+const AdvancedExample = () => {
+  const [webView, setWebView] = React.useState<any>(null);
+
+  const initWebView = async () => {
+    try {
+      const instance = await createWebView({
+        width: 375,
+        height: 667,
+        url: 'https://reactnative.dev',
+        visible: true,
+        javaScriptEnabled: true,
+        domStorageEnabled: true,
+        allowsInlineMediaPlayback: true,
+        cacheEnabled: true,
+        debug: true
+      });
+
       setWebView(instance);
-      Alert.alert('Success', 'WebView created successfully');
     } catch (error) {
-      Alert.alert('Error', `Creation failed: ${error}`);
+      Alert.alert('Error', `Failed to create WebView: ${error}`);
     }
   };
 
-  const loadPage = async () => {
+  const executeJavaScript = async () => {
     if (!webView) return;
-    
+
     try {
-      await webView.loadUrl('https://reactnative.dev');
-      const title = await webView.getPageTitle();
-      Alert.alert('Page Title', title);
+      const result = await webView.executeJavaScript('document.title');
+      Alert.alert('Page Title', result);
     } catch (error) {
-      Alert.alert('Error', `Loading failed: ${error}`);
+      Alert.alert('Error', `JavaScript execution failed: ${error}`);
     }
   };
 
-  const takeScreenshot = async () => {
+  const loadNewPage = async () => {
     if (!webView) return;
-    
+
     try {
-      const screenshot = await webView.captureScreenshot();
-      // Process screenshot data
-      console.log('Screenshot:', screenshot.substring(0, 100));
+      await webView.loadUrl('https://github.com');
     } catch (error) {
-      Alert.alert('Error', `Screenshot failed: ${error}`);
+      Alert.alert('Error', `Failed to load page: ${error}`);
     }
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
-      <Button title="Create WebView" onPress={createWebView} />
-      <Button title="Load Page" onPress={loadPage} />
-      <Button title="Screenshot" onPress={takeScreenshot} />
+    <View style={{ flex: 1, padding: 20 }}>
+      <Button title="Initialize WebView" onPress={initWebView} />
+      <Button title="Execute JavaScript" onPress={executeJavaScript} />
+      <Button title="Load New Page" onPress={loadNewPage} />
     </View>
   );
 };
@@ -141,28 +151,39 @@ const App = () => {
 
 ## 📚 API Documentation
 
-### Configuration Options
+### WebView Configuration
 
 ```typescript
-interface OffscreenWebViewConfig {
+interface WebViewConfig {
   width: number;                    // WebView width
   height: number;                   // WebView height
   url?: string;                     // Initial URL
   html?: string;                    // Initial HTML content
+  visible?: boolean;                // Initial visibility state
+  style?: any;                      // WebView style
+  containerStyle?: any;             // Container style
   userAgent?: string;               // User agent string
   javaScriptEnabled?: boolean;      // Enable JavaScript
-  allowFileAccess?: boolean;        // Allow file access
-  allowUniversalAccessFromFileURLs?: boolean; // Allow universal file access
-  headers?: Record<string, string>; // Custom request headers
-  injectedJavaScript?: string;      // Injected JavaScript code
+  domStorageEnabled?: boolean;      // Enable DOM storage
+  allowsInlineMediaPlayback?: boolean; // Allow inline media playback
+  mediaPlaybackRequiresUserAction?: boolean; // Media playback requires user action
+  cacheEnabled?: boolean;           // Enable cache
+  cacheMode?: 'LOAD_DEFAULT' | 'LOAD_CACHE_ELSE_NETWORK' | 'LOAD_NO_CACHE' | 'LOAD_CACHE_ONLY';
   debug?: boolean;                  // Enable debug mode
 }
 ```
 
-### Instance Methods
+### WebView Instance Methods
 
 ```typescript
-interface OffscreenWebViewInstance {
+interface WebViewInstance {
+  // UI Control
+  show(): void;                     // Show WebView
+  hide(): void;                     // Hide WebView
+  isVisible(): boolean;             // Check if visible
+  isLoaded(): boolean;              // Check if loaded
+  getComponent(): React.ComponentType<any>; // Get React component
+  
   // Page loading
   loadUrl(url: string): Promise<void>;
   loadHTML(html: string, baseURL?: string): Promise<void>;
@@ -175,14 +196,10 @@ interface OffscreenWebViewInstance {
   getPageTitle(): Promise<string>;
   getCurrentUrl(): Promise<string>;
   
-  // Screenshots
-  captureScreenshot(): Promise<string>;
-  
   // Navigation
-  goBack(): Promise<boolean>;
-  goForward(): Promise<boolean>;
+  goBack(): Promise<void>;
+  goForward(): Promise<void>;
   reload(): Promise<void>;
-  stopLoading(): Promise<void>;
   
   // Lifecycle
   destroy(): Promise<void>;
@@ -193,16 +210,16 @@ interface OffscreenWebViewInstance {
 
 ```typescript
 // Create instance
-const webView = await createOffscreenWebView(config);
+const webView = await createWebView(config);
 
 // Check support
-const supported = isOffscreenWebViewSupported();
+const supported = isWebViewSupported();
 
 // Get platform
-const platform = getOffscreenWebViewPlatform();
+const platform = getWebViewPlatform();
 
 // Get version
-const version = getOffscreenWebViewVersion();
+const version = getWebViewVersion();
 ```
 
 ## 🔧 Platform-Specific Configuration
@@ -231,23 +248,24 @@ iOS platform uses WKWebView implementation, configure App Transport Security:
 
 ### Web
 
-Web platform uses hidden iframe implementation, supports all modern browsers.
+Web platform uses iframe implementation, supports all modern browsers.
 
 ## 🎯 Use Cases
 
-- **Webpage Screenshots**: Batch generate webpage screenshots
-- **Content Scraping**: Scrape webpage content for data analysis
-- **Automated Testing**: Run web tests in background
-- **Pre-rendering**: Pre-load and render webpage content
-- **Data Extraction**: Extract structured data from webpages
+- **Inline Web Content**: Display web content directly in your app UI
+- **Hybrid Apps**: Combine native and web functionality
+- **Web-based Features**: Integrate web services and features
+- **Content Display**: Show web pages, forms, or web applications
+- **Dynamic Content**: Load and display dynamic web content
 
 ## 🚨 Important Notes
 
 1. **Memory Management**: Destroy WebView instances when not needed
 2. **Network Permissions**: Ensure app has appropriate network permissions
 3. **Cross-Origin Restrictions**: Web platform may be subject to CORS restrictions
-4. **Performance Considerations**: Large numbers of instances may affect performance
+4. **Performance Considerations**: Multiple instances may affect performance
 5. **Platform Differences**: Behavior may vary slightly between platforms
+6. **UI Integration**: Always wrap WebView components in proper React components
 
 ## 🤝 Contributing
 
@@ -264,8 +282,7 @@ packages/offscreen-webview-sdk/
 ├── src/                    # Core source code
 │   ├── index.ts           # Main entry file
 │   └── platforms/         # Platform-specific implementations
-│       ├── AndroidOffscreenWebView.ts
-│       ├── IOSOffscreenWebView.ts
+│       ├── ReactNativeWebView.ts
 │       └── WebOffscreenWebView.ts
 ├── types/                  # TypeScript type definitions
 │   └── index.d.ts         # Type declarations
@@ -277,9 +294,7 @@ packages/offscreen-webview-sdk/
 │       ├── OffscreenWebViewModule.swift
 │       └── OffscreenWebViewModule.m
 ├── examples/               # Usage examples
-│   ├── react-native-example.tsx     # React Native example
-│   ├── android-example.java         # Android native example
-│   └── ios-example.swift            # iOS native example
+│   └── ui-webview-example.tsx       # WebView example
 ├── package.json           # Package configuration
 ├── tsconfig.json          # TypeScript configuration
 └── README.md              # Detailed documentation

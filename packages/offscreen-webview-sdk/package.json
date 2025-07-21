@@ -1,54 +1,35 @@
 {
   "name": "@native/offscreen-webview-sdk",
   "version": "1.0.0",
-  "description": "Offscreen WebView SDK for React Native, Android, and iOS applications",
+  "description": "A cross-platform WebView SDK for React Native, Android, iOS, and Web platforms",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "native"
-  ],
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
+    "build": "tsc && cp src/types.d.ts dist/types.d.ts",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run build",
-    "test": "jest",
-    "lint": "eslint src --ext .ts,.tsx",
-    "format": "prettier --write src/**/*.{ts,tsx}"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "echo \"Error: no lint specified\" && exit 1",
+    "format": "echo \"Error: no format specified\" && exit 1"
   },
   "keywords": [
     "react-native",
     "webview",
-    "offscreen",
-    "sdk",
+    "cross-platform",
     "android",
     "ios",
-    "headless",
-    "background"
+    "web",
+    "typescript"
   ],
   "author": "Your Name",
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-native": ">=0.70.0",
-    "react-native-webview": ">=13.0.0"
+    "react": "*",
+    "react-native": "*",
+    "react-native-webview": "*"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
-    "@types/react-native": "^0.70.0",
-    "typescript": "^5.0.0",
-    "eslint": "^8.0.0",
-    "prettier": "^3.0.0",
-    "jest": "^29.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/your-username/native.git",
-    "directory": "packages/offscreen-webview-sdk"
-  },
-  "bugs": {
-    "url": "https://github.com/your-username/native/issues"
-  },
-  "homepage": "https://github.com/your-username/native/tree/main/packages/offscreen-webview-sdk#readme"
+    "@types/react-native": "^0.72.0",
+    "typescript": "^5.0.0"
+  }
 } 
