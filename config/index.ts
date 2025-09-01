@@ -20,7 +20,7 @@ export default defineConfig<'vite'>(async (merge, { }) => {
     outputRoot: 'dist',
     plugins: [
       "@tarojs/plugin-generator",
-      '@tarojs/plugin-platform-harmony-cpp'
+      '@tarojs/plugin-platform-harmony-ets'
     ],
     defineConstants: {
     },
@@ -82,7 +82,8 @@ export default defineConfig<'vite'>(async (merge, { }) => {
     },
     harmony: {
       // compiler: 'vite',
-      projectPath: path.join(os.homedir(), '/Desktop/test/tarooh'),
+      // projectPath: path.join(os.homedir(), '../../Documents/harmony'),
+      projectPath: path.resolve(process.cwd(), '../../Documents/harmony'),
       hapName: 'entry',
     },
   }

@@ -29,7 +29,9 @@
     "dev:rn": "npm run build:rn -- --watch",
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
-    "dev:harmony-hybrid": "npm run build:harmony-hybrid -- --watch"
+    "dev:harmony-hybrid": "npm run build:harmony-hybrid -- --watch",
+    "build:harmony": "taro build --type harmony",
+    "dev:harmony": "npm run build:harmony -- --watch"
   },
   "browserslist": {
     "development": [
@@ -80,7 +82,7 @@
     "@commitlint/config-conventional": "^19.8.1",
     "@tarojs/cli": "4.1.6",
     "@tarojs/plugin-generator": "4.1.6",
-    "@tarojs/plugin-platform-harmony-cpp": "^4.1.6",
+    "@tarojs/plugin-platform-harmony-ets": "4.1.6-beta.1",
     "@tarojs/vite-runner": "4.1.6",
     "@types/minimatch": "^5",
     "@types/react": "^18.0.0",
