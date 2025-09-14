@@ -1,10 +1,14 @@
 import { View, Text, Image } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
+import { useTabStore } from '../../store/tabStore'
 import './index.scss'
 
 export default function Profile() {
+  const { setCurrentTab } = useTabStore()
+
   useLoad(() => {
     console.log('Profile page loaded.')
+    setCurrentTab('profile')
   })
 
   return (

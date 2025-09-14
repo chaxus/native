@@ -1,0 +1,33 @@
+.app-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.global-webview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background-color: #fff;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .webview-content {
+    width: 100%;
+    height: 100%;
+  }
+}
