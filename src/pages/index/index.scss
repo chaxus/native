@@ -1,0 +1,60 @@
+.index {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0;
+
+  .index-header {
+    padding: 60px 30px 40px;
+    text-align: center;
+    color: #fff;
+
+    .welcome-text {
+      display: block;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      display: block;
+      font-size: 16px;
+      opacity: 0.9;
+    }
+  }
+
+  .index-content {
+    padding: 0 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+
+      .card-icon {
+        font-size: 32px;
+        margin-right: 16px;
+      }
+
+      .card-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 4px;
+        display: block;
+      }
+
+      .card-desc {
+        font-size: 14px;
+        color: #666;
+        display: block;
+      }
+    }
+  }
+}
